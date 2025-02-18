@@ -18,6 +18,9 @@ class OrderCreateAPIView(generics.CreateAPIView):
     queryset = Order.objects.prefetch_related('items')
     serializer_class = OrderSerializer
 
+    def perform_create(self, serializer):
+        order = serializer.save()
+        return order
 
 class OrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('items')
