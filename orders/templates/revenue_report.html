@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Revenue</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css?v=2">
+</head>
+<body>
+    <h1>Выручка за смену</h1>
+
+    <h2>Список оплаченных заказов</h2>
+    <table class="container">
+        <thead>
+            <tr>
+                <th><h2>ID</h2></th>
+                <th><h2>Стол</h2></th>
+                <th><h2>Блюда</h2></th>
+                <th><h2>Сумма</h2></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in paid_orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.table_number }}</td>
+                <td>
+                    <ul class="markers">
+                        {% for item in order.items.all %}
+                            <li>{{ item.title }} - {{ item.price }} руб.</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ order.total_price }} руб.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p><strong>Общая сумма оплаченных заказов:</strong>  {{ total_revenue }} руб.</p>
+
+    <a href="/" class="button">Назад</a>
+</body>
+</html>

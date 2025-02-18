@@ -1,0 +1,150 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #008080;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #FFFFFF;
+    text-align: center;
+    paint-order: stroke fill;
+    -webkit-text-stroke: 5px black;
+}
+
+form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+label {
+    font-size: 1.2em;
+    margin-left: 1px;
+    display: block;
+    color: #333;
+}
+
+input[type="text"], input[type="checkbox"] {
+    margin: 8px 0;
+    padding: 8px;
+    font-size: 1em;
+}
+
+input[type="text"] {
+    width: calc(20% - 20px);
+}
+
+h3 {
+    color: #333;
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+button[type="submit"] {
+    display: inline-block;
+    background: #28a745;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 8px;
+    border: solid 2px black;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #28a745;
+    border-color: #218838;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+input[type="checkbox"]:checked::after {
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    top: 0;
+    left: 4px;
+}
+
+input[type="checkbox"]:hover {
+    border-color: #218838;
+}
+
+.search-form input[type="text"] {
+    padding: 1px 1px;
+    border: solid 2px black;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 50px;
+    margin-right: 10px;
+}
+
+a {
+    display: inline-block;
+    background: #28a745;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 8px;
+    border: solid 2px black;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+a:hover {
+    background: #218838;
+}
+
+.messages {
+    list-style: none;
+    padding: 0;
+}
+
+.messages li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.messages .error {
+    background-color: #ffdddd;
+    border-left: 5px solid #ff4d4d;
+    color: #d8000c;
+}
+

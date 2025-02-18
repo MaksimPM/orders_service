@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Order List</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css?v=2">
+</head>
+<body>
+    <h1>Список заказов</h1>
+    <a href="/add/" class="button">Добавить заказ</a>
+    <a href="{% url 'orders:revenue_report' %}" class="button">Выручка за смену</a>
+
+    <form method="get" class="search-form">
+        <input type="text" name="search" placeholder="Поиск по номеру стола" value="{{ request.GET.search }}">
+        <select name="status">
+            <option value="">Все</option>
+            <option value="pending" {% if request.GET.status == "pending" %}selected{% endif %}>В ожидании</option>
+            <option value="ready" {% if request.GET.status == "ready" %}selected{% endif %}>Готово</option>
+            <option value="paid" {% if request.GET.status == "paid" %}selected{% endif %}>Оплачено</option>
+        </select>
+        <button type="submit">Поиск</button>
+    </form>
+
+    <table class="container">
+        <thead>
+            <tr>
+                <th><h2>ID</h2></th>
+                <th><h2>Стол</h2></th>
+                <th><h2>Блюда</h2></th>
+                <th><h2>Сумма</h2></th>
+                <th><h2>Статус</h2></th>
+                <th><h2>Действия</h2></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.table_number }}</td>
+                <td>
+                    <ul class="markers">
+                        {% for item in order.items.all %}
+                            <li>{{ item.title }} - {{ item.price }} руб.</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ order.total_price }} руб.</td>
+                <td class="status">{{ order.get_status_display }}</td>
+                <td>
+                    <button class="update-status" data-order-id="{{ order.id }}" data-status="{{ order.status }}">Изменить статус</button>
+                    <a href="{% url 'orders:edit_order' order.id %}" class="edit">Редактировать</a>
+                    <button class="delete-order" data-order-id="{{ order.id }}">Удалить</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div id="status-modal" class="modal">
+        <div class="modal-content">
+            <h2>Изменить статус заказа</h2>
+            <form id="status-form" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" id="order-id">
+                <select name="status" id="statusSelect">
+                    <option value="pending">В ожидании</option>
+                    <option value="ready">Готово</option>
+                    <option value="paid">Оплачено</option>
+                </select>
+                <button class="update" type="submit" id="saveStatus">Обновить</button>
+            </form>
+            <button class="close" id="closeModal">Закрыть</button>
+        </div>
+    </div>
+
+    <div id="delete-modal" class="delete-modal">
+        <div class="delete-modal-content">
+            <h2>Удалить заказ?</h2>
+            <form id="delete-form" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" id="delete-order-id">
+                <button type="submit" id="confirmDelete">Удалить</button>
+                <button type="button" id="cancelDelete">Отмена</button>
+            </form>
+        </div>
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

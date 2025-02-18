@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Status</title>
+</head>
+<body>
+    <h1>Изменить статус заказа</h1>
+    <form method="post">
+        {% csrf_token %}
+        <select name="status">
+            <option value="pending">В ожидании</option>
+            <option value="ready">Готово</option>
+            <option value="paid">Оплачено</option>
+        </select>
+        <button type="submit">Обновить</button>
+    </form>
+    <a href="/">Назад</a>
+</body>
+</html>
