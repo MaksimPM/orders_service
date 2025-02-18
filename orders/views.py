@@ -5,34 +5,37 @@ from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.edit import FormView
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from items.models import Item
 from orders.models import Order
 from orders.serializers import OrderSerializer
 from orders.forms import OrderForm, OrderStatusForm, OrderEditForm
 from django.db.models import Sum
 from django.http import JsonResponse
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework import status
 
 
-
-class OrderViewSet(viewsets.ModelViewSet):
+class OrderCreateAPIView(generics.CreateAPIView):
     queryset = Order.objects.prefetch_related('items')
     serializer_class = OrderSerializer
 
-    @action(detail=True, methods=['patch'])
-    def update_status(self, request, pk=None):
-        order = self.get_object()
-        status_value = request.data.get('status')
 
-        if status_value not in ['pending', 'ready', 'completed']:
-            return Response({'detail': 'Invalid status'}, status=status.HTTP_400_BAD_REQUEST)
+class OrderListAPIView(generics.ListAPIView):
+    queryset = Order.objects.prefetch_related('items')
+    serializer_class = OrderSerializer
 
-        order.status = status_value
-        order.save()
-        return Response({'status': order.status})
+
+class OrderRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = Order.objects.prefetch_related('items')
+    serializer_class = OrderSerializer
+
+
+class OrderUpdateAPIView(generics.UpdateAPIView):
+    queryset = Order.objects.prefetch_related('items')
+    serializer_class = OrderSerializer
+
+
+class OrderDestroyAPIView(generics.DestroyAPIView):
+    queryset = Order.objects.prefetch_related('items')
 
 
 class OrderListView(ListView):
