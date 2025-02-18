@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB'),
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        #'HOST': os.getenv('HOST'), # необходимо закомментировать для работы не из докера
+        'HOST': os.getenv('HOST'), # необходимо закомментировать для работы не из докера
     }
 }
 
