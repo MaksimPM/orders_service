@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
@@ -11,7 +12,7 @@ class Order(models.Model):
         ('paid', 'Оплачено'),
     ]
 
-    table_number = models.IntegerField(verbose_name='номер стола')
+    table_number = models.IntegerField(validators=[MinValueValidator(1)], verbose_name='номер стола')
     items = models.ManyToManyField(Item, verbose_name='блюда')
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name='сумма заказа')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending', verbose_name='статус заказа')
