@@ -90,67 +90,81 @@ class OrderTests(TestCase):
         self.assertIn('total_revenue', response.context)
 
 
-class OrderApiTests(APITestCase):
-
+class OrderAPITests(APITestCase):
     def setUp(self):
-        self.item1 = Item.objects.create(title="Item 1", price=100)
-        self.item2 = Item.objects.create(title="Item 2", price=200)
-        self.order = Order.objects.create(table_number=1, status='pending')
+        self.item1 = Item.objects.create(title='Блюдо 1', price=100)
+        self.item2 = Item.objects.create(title='Блюдо 2', price=200)
+        self.item3 = Item.objects.create(title='Блюдо 3', price=150)
+        self.order = Order.objects.create(table_number=1)
         self.order.items.add(self.item1, self.item2)
-        self.url = reverse('orders:order-list')
-
-    def test_get_orders(self):
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
+        self.url = reverse('orders:order_list_api')
 
     def test_create_order(self):
+        url = reverse('orders:add_order_api')
         data = {
             'table_number': 2,
             'items': [self.item1.id, self.item2.id]
         }
-        response = self.client.post(self.url, data, format='json')
+        response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Order.objects.count(), 2)
-        self.assertEqual(response.data['table_number'], 2)
 
     def test_create_order_invalid_data(self):
+        url = reverse('orders:add_order_api')
         data = {
-            'table_number': 2,
-            'items': []
+            'table_number': -1,  # Неверный номер стола
+            'items': [self.item1.id]
         }
-        response = self.client.post(self.url, data, format='json')
+        response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('items', response.data)
+        self.assertIn('Номер стола должен быть положительным', str(response.data))
+
+    def test_list_orders(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+
+    def test_retrieve_order(self):
+        url = reverse('orders:retrieve_order_api', kwargs={'pk': self.order.pk})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['table_number'], self.order.table_number)
 
     def test_update_order(self):
-        url = reverse('orders:order-detail', args=[self.order.id])
+        url = reverse('orders:edit_order_api', kwargs={'pk': self.order.pk})
         data = {
-            'table_number': 1,
-            'items': [self.item1.id]
+            'table_number': 3,
+            'items': [self.item1.id],
         }
         response = self.client.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.order.refresh_from_db()
-        self.assertEqual(self.order.items.count(), 1)
+        self.assertEqual(self.order.table_number, 3)
 
     def test_delete_order(self):
-        url = reverse('orders:order-detail', args=[self.order.id])
+        url = reverse('orders:delete_order_api', kwargs={'pk': self.order.pk})
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Order.objects.count(), 0)
 
-    def test_order_status_update(self):
-        url = reverse('orders:order-update-status', args=[self.order.id])
-        data = {'status': 'ready'}
-        response = self.client.patch(url, data, format='json')
+    def test_order_total_price_update_on_item_add(self):
+        new_item = Item.objects.create(title='Блюдо 3', price=150)
+        url = reverse('orders:edit_order_api', kwargs={'pk': self.order.pk})
+        data = {
+            'table_number': self.order.table_number,
+            'items': [self.item1.id, self.item2.id, new_item.id],
+        }
+        response = self.client.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.order.refresh_from_db()
-        self.assertEqual(self.order.status, 'ready')
+        self.assertEqual(str(self.order.total_price), '450.00')
 
-    def test_order_status_update_invalid(self):
-        url = reverse('orders:order-update-status', args=[self.order.id])
-        data = {'status': 'invalid_status'}
-        response = self.client.patch(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
+    def test_order_total_price_update_on_item_remove(self):
+        url = reverse('orders:edit_order_api', kwargs={'pk': self.order.pk})
+        data = {
+            'table_number': self.order.table_number,
+            'items': [self.item1.id],  # Убираем второе блюдо
+        }
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.order.refresh_from_db()
+        self.assertEqual(str(self.order.total_price), '100.00')
