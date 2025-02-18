@@ -4,7 +4,7 @@ from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
 from items.models import Item
 
-
+"""Модель заказа"""
 class Order(models.Model):
     STATUS_CHOICES = [
         ('pending', 'В ожидании'),

@@ -2,7 +2,7 @@ from django.core.management import BaseCommand
 from config import settings
 from users.models import User
 
-
+"""Команда для создания суперюзера"""
 class Command(BaseCommand):
 
     def handle(self, *args, **options):

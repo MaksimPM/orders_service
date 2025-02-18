@@ -3,6 +3,7 @@ from django import forms
 from items.models import Item
 from .models import Order
 
+"""Форма для создания заказа"""
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
@@ -32,6 +33,7 @@ class OrderForm(forms.ModelForm):
             return 'Это поле обязательно для заполнения!'
         return error
 
+"""Форма для редактирования заказа"""
 class OrderEditForm(forms.ModelForm):
     class Meta:
         model = Order

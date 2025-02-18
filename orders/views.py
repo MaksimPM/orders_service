@@ -13,7 +13,7 @@ from orders.forms import OrderForm, OrderStatusForm, OrderEditForm
 from django.db.models import Sum
 from django.http import JsonResponse
 
-
+"""API Эндпоинты для работы с заказом"""
 class OrderCreateAPIView(generics.CreateAPIView):
     queryset = Order.objects.prefetch_related('items')
     serializer_class = OrderSerializer
@@ -41,6 +41,7 @@ class OrderDestroyAPIView(generics.DestroyAPIView):
     queryset = Order.objects.prefetch_related('items')
 
 
+"""Эндпоинт для вывода списка заказов"""
 class OrderListView(ListView):
     model = Order
     template_name = "order_list.html"
@@ -62,7 +63,7 @@ class OrderListView(ListView):
 
         return orders.order_by('id')
 
-
+"""Эндпоинт для создания заказов"""
 class OrderCreateView(CreateView):
     model = Order
     form_class = OrderForm
@@ -84,7 +85,7 @@ class OrderCreateView(CreateView):
         context["items"] = Item.objects.all()
         return context
 
-
+"""Эндпоинт для удаления заказов"""
 class OrderDeleteView(DeleteView):
     model = Order
     success_url = reverse_lazy("orders:order_list")
@@ -92,7 +93,7 @@ class OrderDeleteView(DeleteView):
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
 
-
+"""Эндпоинт для редактирования заказов"""
 class OrderEditView(UpdateView):
     model = Order
     form_class = OrderEditForm
@@ -121,7 +122,7 @@ class OrderEditView(UpdateView):
         context["items"] = Item.objects.all()
         return context
 
-
+"""Эндпоинт для обновления статуса заказов"""
 @method_decorator(csrf_exempt, name='dispatch')
 class OrderStatusUpdateView(FormView):
     form_class = OrderStatusForm
@@ -139,7 +140,7 @@ class OrderStatusUpdateView(FormView):
 
         return JsonResponse({"success": False}, status=400)
 
-
+"""Эндпоинт для рассчета выручки за смену"""
 class RevenueReportView(View):
     template_name = "revenue_report.html"
 
