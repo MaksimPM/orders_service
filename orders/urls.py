@@ -8,10 +8,10 @@ app_name = OrdersConfig.name
 
 urlpatterns = [
     path('api/add/', OrderCreateAPIView.as_view(),name='add_order'),
-    path('api/list_order/', OrderListAPIView.as_view(),name='list_order'),
+    path('api/list_orders/', OrderListAPIView.as_view(),name='list_order'),
     path('api/retrieve_order/<int:pk>/', OrderRetrieveAPIView.as_view(),name='add_order'),
     path('api/edit_order/<int:pk>/', OrderUpdateAPIView.as_view(), name='edit_order'),
-    path('api/delete/<int:pk>/', OrderDestroyAPIView.as_view(), name='delete_order'),
+    path('api/delete_order/<int:pk>/', OrderDestroyAPIView.as_view(), name='delete_order'),
 
     path('', OrderListView.as_view(), name='order_list'),
     path('add/', OrderCreateView.as_view(), name='add_order'),
