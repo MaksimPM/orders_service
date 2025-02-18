@@ -57,6 +57,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',  # Права доступа для аутентифицированных пользователей
+    ),
+}
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -87,7 +93,7 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB'),
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': os.getenv('HOST'), # необходимо закомментировать для работы не из докера
+        #'HOST': os.getenv('HOST'), # необходимо закомментировать для работы не из докера
     }
 }
 
