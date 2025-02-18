@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Order
+from .models import Order, Item
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,7 +15,7 @@ class OrderSerializer(serializers.ModelSerializer):
     )
 
     items = serializers.PrimaryKeyRelatedField(
-        queryset=Order.items.rel.model.objects.all(),
+        queryset=Item.objects.all(),
         many=True,
         allow_empty=False,
         error_messages={
@@ -23,3 +23,13 @@ class OrderSerializer(serializers.ModelSerializer):
             'required': 'Поле "items" обязательно для заполнения!'
         }
     )
+
+    def validate_table_number(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("Номер стола должен быть положительным!")
+        return value
+
+    def validate_items(self, value):
+        if not value:
+            raise serializers.ValidationError("Необходимо добавить хотя бы одно блюдо.")
+        return value
