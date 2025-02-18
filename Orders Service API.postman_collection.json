@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "e753de7c-502b-4782-87c8-778f52a7f679",
+		"name": "Orders Service API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30959595"
+	},
+	"item": [
+		{
+			"name": "api/edit_order/<int:pk>/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTk1MTc1LCJpYXQiOjE3Mzk1OTQyNzUsImp0aSI6IjIwZjMzMWExYTE0YjQ5ZmZhOTBlNDVjMmNiYWNjYmExIiwidXNlcl9pZCI6Mn0.KZO0P3xWH93JP6KWWS4AZ489Hjx6A1USJWYTOf4UUFU",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"ready\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/edit_order/<int:pk>/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"edit_order",
+						"<int:pk>",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/retrieve_order/<int:pk>/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTk1MTc1LCJpYXQiOjE3Mzk1OTQyNzUsImp0aSI6IjIwZjMzMWExYTE0YjQ5ZmZhOTBlNDVjMmNiYWNjYmExIiwidXNlcl9pZCI6Mn0.KZO0P3xWH93JP6KWWS4AZ489Hjx6A1USJWYTOf4UUFU",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/retrieve_order/<int:pk>/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"retrieve_order",
+						"<int:pk>",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/list_orders/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTk1MTc1LCJpYXQiOjE3Mzk1OTQyNzUsImp0aSI6IjIwZjMzMWExYTE0YjQ5ZmZhOTBlNDVjMmNiYWNjYmExIiwidXNlcl9pZCI6Mn0.KZO0P3xWH93JP6KWWS4AZ489Hjx6A1USJWYTOf4UUFU",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/list_orders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"list_orders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/add/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTk1MTc1LCJpYXQiOjE3Mzk1OTQyNzUsImp0aSI6IjIwZjMzMWExYTE0YjQ5ZmZhOTBlNDVjMmNiYWNjYmExIiwidXNlcl9pZCI6Mn0.KZO0P3xWH93JP6KWWS4AZ489Hjx6A1USJWYTOf4UUFU",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"table_number\": int,\n    \"items\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/add/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"add",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/edit_order/<int:pk>/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTk1MTc1LCJpYXQiOjE3Mzk1OTQyNzUsImp0aSI6IjIwZjMzMWExYTE0YjQ5ZmZhOTBlNDVjMmNiYWNjYmExIiwidXNlcl9pZCI6Mn0.KZO0P3xWH93JP6KWWS4AZ489Hjx6A1USJWYTOf4UUFU",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"table_number\": int,\n    \"items\": [],\n    \"status\": str\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/edit_order/<int:pk>/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"edit_order",
+						"<int:pk>",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/delete_order/<int:pk>/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTk1MTc1LCJpYXQiOjE3Mzk1OTQyNzUsImp0aSI6IjIwZjMzMWExYTE0YjQ5ZmZhOTBlNDVjMmNiYWNjYmExIiwidXNlcl9pZCI6Mn0.KZO0P3xWH93JP6KWWS4AZ489Hjx6A1USJWYTOf4UUFU",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/delete_order/<int:pk>/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"delete_order",
+						"<int:pk>",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
